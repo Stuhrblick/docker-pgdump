@@ -1,0 +1,12 @@
+#!/bin/sh
+
+source .env
+source .version
+ABS_PATH=$(pwd)
+
+docker buildx build --push \
+    -f Dockerfile . \
+    -t $DOCKER_HUB_USER/$PROJECT_NAME:$VERSION \
+    -t $DOCKER_HUB_USER/$PROJECT_NAME:latest \
+    --platform=linux/amd64 \
+    --network=host
