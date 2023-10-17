@@ -8,13 +8,13 @@ fi
 
 # Function to dump the PostgreSQL database
 dump_database() {
-    PGPASSWORD=$DB_PASSWORD pg_dump -h $DB_HOST -p $DB_PORT -U $DB_USER -F c -b -v -f $DUMP_DIR/$(date +"%Y%m%d%H%M%S")_$DB_NAME.dump $DB_NAME
+    PGPASSWORD=$DB_PASSWORD pg_dump -h $DB_HOST -p $DB_PORT -U $DB_USER -F p -b -v -f $DUMP_DIR/$(date +"%Y%m%d%H%M%S")_$DB_NAME.sql $DB_NAME
     echo "Database dump completed."
 }
 
 # Function to delete old dumps
 delete_old_dumps() {
-    find $DUMP_DIR -type f -name "*_$DB_NAME.dump" -mtime +$RETENTION_DAYS -exec rm {} +
+    find $DUMP_DIR -type f -name "*_$DB_NAME.sql" -mtime +$RETENTION_DAYS -exec rm {} +
     echo "Old dumps deleted."
 }
 
